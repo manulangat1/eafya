@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Doctor,Patient,History
 from django.contrib.auth.models import User
-from .emails import send_welcome_email
+from .tasks import send_welcome_email_task
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
@@ -37,5 +37,5 @@ class UserSerializer(serializers.ModelSerializer):
         user = User(username=username,email=email)
         user.set_password(validated_data['password'])
         user.save()
-        send_welcome_email(username,email)
+        send_welcome_email_task.delay(username,email)
         return user
