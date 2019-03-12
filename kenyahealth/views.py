@@ -6,6 +6,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import login,authenticate,logout
+from .tasks import send_history_email_task
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -18,6 +19,7 @@ class LoginView(APIView):
     def post(self,request,format=None):
         username = request.data.get('username')
         password = request.data.get('password')
+        send_history_email_task(username,email)
         user = authenticate(username=username,password=password)
         if user:
             return Response(login(request,user))

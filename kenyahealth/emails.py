@@ -11,3 +11,13 @@ def send_welcome_email(username,receiver):
     msg =  EmailMultiAlternatives(subject,text_content,sender,[receiver])
     msg.attach_alternative(html_content,'text/html')
     msg.send()
+def send_history_email(username,email):
+    subject = 'hello from eafya'
+    sender = 'langatfarmer@gmail.com'
+    #passing  in the conttext variables
+    text_content = render_to_string('email/his.txt',{"username":username})
+    html_content= render_to_string('email/his.html',{"username":username})
+
+    msg = EmailMultiAlternatives(subject,text_content,sender,[receiver])
+    msg.attach_alternative(html_content,'text/html')
+    msg.send()
