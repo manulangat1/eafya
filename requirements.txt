@@ -16,5 +16,5 @@ python-decouple==3.1
 pytz==2018.9
 requests==2.21.0
 schema==0.7.0
-urllib3==1.24.1
+urllib3==1.26.5
 vine==1.2.0
